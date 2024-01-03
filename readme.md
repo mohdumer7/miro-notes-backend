@@ -45,7 +45,10 @@ npm start
 
 ## The APP will be accessible at http://localhost:3000.
 
-### 5. Run Tests
+### 5. Postman Import
+A postman JSON collection is saved in ./postman which can be directly imported into postman.
+
+### 6. Run Tests
 ```bash
 npm test
 ```
