@@ -75,6 +75,43 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var resp = JSON.parse(responseBody)\r",
+									"pm.collectionVariables.set(\"token\", resp[\"token\"]);\r",
+									"pm.environment.set(\"token\", resp[\"token\"]);\r",
+									"pm.test(\"Response status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response has required fields\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"\r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.access_token).to.exist.and.to.be.a('string');\r",
+									"  pm.expect(responseData.refresh_token).to.exist.and.to.be.a('string');\r",
+									"  pm.expect(responseData.user_info).to.exist.and.to.be.an('object');\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -214,7 +251,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/api/notes/1",
+					"raw": "http://localhost:3000/api/notes/6595b2179711811ee00e7c2f",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -223,7 +260,7 @@
 					"path": [
 						"api",
 						"notes",
-						"1"
+						"6595b2179711811ee00e7c2f"
 					]
 				}
 			},
@@ -248,7 +285,7 @@
 					"raw": "{\"title\":\"Updated Note\",\"content\":\"This is an updated note.\"}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/notes/1",
+					"raw": "http://localhost:3000/api/notes/6595b2179711811ee00e7c2f",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -257,7 +294,7 @@
 					"path": [
 						"api",
 						"notes",
-						"1"
+						"6595b2179711811ee00e7c2f"
 					]
 				}
 			},
@@ -274,7 +311,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/api/notes/1",
+					"raw": "http://localhost:3000/api/notes/6595b2179711811ee00e7c2f",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -283,7 +320,7 @@
 					"path": [
 						"api",
 						"notes",
-						"1"
+						"6595b2179711811ee00e7c2f"
 					]
 				}
 			},
@@ -305,10 +342,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"userId\":2}"
+					"raw": "{\"userId\":\"6595a833ac9828c61dfccd47\"}"
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/notes/1/share",
+					"raw": "http://localhost:3000/api/notes/6595b2179711811ee00e7c2f/share",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -317,7 +354,7 @@
 					"path": [
 						"api",
 						"notes",
-						"1",
+						"6595b2179711811ee00e7c2f",
 						"share"
 					]
 				}
@@ -335,7 +372,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/api/search?q=test",
+					"raw": "http://localhost:3000/api/notes/search?q=test",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -343,6 +380,7 @@
 					"port": "3000",
 					"path": [
 						"api",
+						"notes",
 						"search"
 					],
 					"query": [
